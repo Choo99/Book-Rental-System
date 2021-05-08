@@ -3,8 +3,6 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import model.User;
 //import com.mysql.jdbc.PreparedStatement;
 
@@ -255,7 +253,6 @@ public boolean isUserICExist(String ic)
         Connection conn =null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        int status = 0;
 
         User user = null;
         try

@@ -1,9 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
-
-import java.awt.EventQueue;
-
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,17 +8,17 @@ import javax.swing.border.EmptyBorder;
 import model.User;
 
 import java.awt.Color;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.border.BevelBorder;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ImageIcon;
 
 public class ViewCustomerMenu extends JFrame 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton SearchButton;
 	private JButton RentalButton;

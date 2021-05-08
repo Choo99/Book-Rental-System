@@ -8,8 +8,6 @@ import javax.swing.JFrame;
 
 import model.User;
 
-import model.User;
-
 //button to quit from book return screen to rental menu
 public class BookReturnQuitButtonListener implements ActionListener {
  private JFrame frame;

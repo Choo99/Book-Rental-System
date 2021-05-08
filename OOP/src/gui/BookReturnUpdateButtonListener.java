@@ -2,14 +2,12 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import controller.BookController;
-import controller.InputController;
 import controller.RentalController;
 import model.Book;
 import model.Rental;

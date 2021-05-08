@@ -329,7 +329,6 @@ public class BookController
         String sql = "SELECT MAX(CopyID)+1 FROM Copy WHERE bookID = ?";
         int status = 0;
         int copyID = 0;
-        int count = 0;
 
         try
         {
@@ -437,7 +436,6 @@ public class BookController
         Statement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT TypeName FROM BookType";
-        int status = 0;
         
         List<Book> bookList = new ArrayList<Book>();
         try

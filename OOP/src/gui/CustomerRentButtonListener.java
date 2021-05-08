@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
 import controller.BookController;
 import controller.RentalController;
 import model.User;
-import model.Book;
 import model.Rental;
 
 //button to rent and pop out message and go to rental slip screen

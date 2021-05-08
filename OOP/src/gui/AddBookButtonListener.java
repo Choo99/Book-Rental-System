@@ -20,7 +20,6 @@ public class AddBookButtonListener implements ActionListener {
  
  private JTextField titleField;
  private JTextField authorField;
- private JComboBox bookType;
  private JTextField quantityField;
  private Book book;
  private BookController bookController; 

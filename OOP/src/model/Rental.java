@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.Date;
-
 public class Rental {
 
 	private int userID;

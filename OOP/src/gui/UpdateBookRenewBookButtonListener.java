@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import controller.BookController;
-import controller.InputController;
 import model.Book;
 
 //button to renew book information

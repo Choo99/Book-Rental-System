@@ -3,12 +3,7 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.table.DefaultTableModel;
-
-import controller.BookController;
-import model.Book;
 import model.User;
 
 //button to go to customer rental screen

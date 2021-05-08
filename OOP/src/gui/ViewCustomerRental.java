@@ -1,8 +1,6 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 
@@ -23,6 +21,10 @@ import java.awt.Insets;
 
 public class ViewCustomerRental extends JFrame 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField rentBookTextField;
 	private JTable rentalBookListTable;
