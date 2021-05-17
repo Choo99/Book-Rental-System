@@ -271,7 +271,8 @@ public class BookController
     	}
     
     //admin insert new book
-    public int insertBook(Book book)
+    @SuppressWarnings("resource")
+	public int insertBook(Book book)
     {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -320,7 +321,8 @@ public class BookController
     }
 
     //Admin insert new copy
-    public int insertCopy(int bookID)
+    @SuppressWarnings("resource")
+	public int insertCopy(int bookID)
     {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -351,6 +353,7 @@ public class BookController
            ps.setInt(1, bookID);
            ps.setInt(2, copyID);
            status= ps.executeUpdate();
+           ps.close();
         }
         catch(Exception ex)
         {
