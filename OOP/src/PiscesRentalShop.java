@@ -1,4 +1,4 @@
-import gui.ViewMain;
+import gui.main.ViewMain;
 import model.User;
 
 /**
