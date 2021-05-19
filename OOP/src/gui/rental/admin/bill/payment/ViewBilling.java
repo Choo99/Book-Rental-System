@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import gui.rental.admin.bill.receipt.ViewReceipt;
+import model.Rental;
 import model.User;
 
 import javax.swing.JLabel;
@@ -29,6 +31,11 @@ public class ViewBilling extends JFrame {
 	private JTextField expectedField;
 	private JTextField rentalFeeField;
 	private JTextField rentalIDField2;
+	private Rental rental;
+	private String message;
+	private JButton searchButton;
+	private JButton printButton;
+	private ViewReceipt receipt;
 
 	public ViewBilling(User user) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +52,7 @@ public class ViewBilling extends JFrame {
 		paymentIcon.setBounds(380, 11, 81, 90);
 		contentPane.add(paymentIcon);
 
-		JButton printButton = new JButton("Print");
+		printButton = new JButton("Print");
 		printButton.setMargin(new Insets(8, 14, 2, 14));
 		printButton.setIcon(new ImageIcon(ViewBilling.class.getResource("/png/printer.png")));
 		printButton.setFont(new Font("Palatino Linotype", Font.BOLD, 17));
@@ -74,7 +81,7 @@ public class ViewBilling extends JFrame {
 		contentPane.add(nameField);
 		nameField.setColumns(10);
 
-		JButton searchButton = new JButton("");
+		searchButton = new JButton("");
 
 		searchButton.setIcon(new ImageIcon(ViewBilling.class.getResource("/png/transparency.png")));
 		searchButton.setBounds(671, 156, 49, 23);
@@ -89,7 +96,7 @@ public class ViewBilling extends JFrame {
 		currentDateLabel.setFont(new Font("Palatino Linotype", Font.BOLD, 15));
 		currentDateLabel.setBounds(173, 289, 126, 29);
 		contentPane.add(currentDateLabel);
-
+ 
 		currentDateField = new JTextField();
 		currentDateField.setEditable(false);
 		currentDateField.setBounds(481, 289, 155, 23);
@@ -136,18 +143,51 @@ public class ViewBilling extends JFrame {
 
 		rentalIDField2 = new JTextField();
 		rentalIDField2.setEditable(false);
-		rentalIDField2.setBounds(481, 208, 155, 22);
+		rentalIDField2.setBounds(481, 208, 155, 22); 
 		contentPane.add(rentalIDField2);
 		rentalIDField2.setColumns(10);
 
-		ActionListener actionlistener = new PaymentSearchButtonListener(rentalIDField, nameField, currentDateField,
+		ActionListener actionlistener = new PaymentSearchButtonListener(this,rentalIDField, nameField, currentDateField,
 				expectedField, rentalFeeField, printButton, rentalIDField2);
 		searchButton.addActionListener(actionlistener);
 
 		ActionListener actionlistener2 = new PaymentQuitButtonListener(this, user);
 		quitButton.addActionListener(actionlistener2);
-
-		ActionListener actionlistener3 = new PaymentPrintButtonListener(this, rentalIDField2, user);
+ 
+		ActionListener actionlistener3 = new PaymentPrintButtonListener(this,rentalIDField2, user);
 		printButton.addActionListener(actionlistener3);
+		
+		setName();
 	}
+	
+	public void setName() {
+		rentalIDField.setName("rentalID");
+		searchButton.setName("searchBtn");
+		printButton.setName("updateBtn");
+	}
+
+	public Rental getRental() {
+		return rental;
+	}
+
+	public void setRental(Rental rental) {
+		this.rental = rental;
+	}
+	
+	public ViewReceipt getReceipt() {
+		return receipt;
+	}
+
+	public void setReceipt(ViewReceipt receipt) {
+		this.receipt = receipt;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 }

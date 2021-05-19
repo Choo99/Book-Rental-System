@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import gui.account.ViewUpdateAccount;
+import gui.account.admin.ViewUpdateAccount;
 import model.User;
 
 //button to update account menu

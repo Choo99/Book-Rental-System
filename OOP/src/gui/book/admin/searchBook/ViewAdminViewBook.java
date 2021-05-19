@@ -33,6 +33,8 @@ public class ViewAdminViewBook extends JFrame {
 	private JTextField bookIDField;
 	private JTable viewBookTable;
 	private DefaultTableModel model;
+	private JButton searchButton;
+	private String message;
 
 	public ViewAdminViewBook(User user) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,7 +83,7 @@ public class ViewAdminViewBook extends JFrame {
 		viewBookTable.getColumnModel().getColumn(4).setPreferredWidth(125);
 		viewBookScrollPanel.setViewportView(viewBookTable);
 
-		JButton searchButton = new JButton("");
+		searchButton = new JButton("");
 		searchButton.setIcon(new ImageIcon(ViewAdminViewBook.class.getResource("/png/transparency.png")));
 		searchButton.setBounds(673, 163, 85, 25);
 		contentPane.add(searchButton);
@@ -105,11 +107,13 @@ public class ViewAdminViewBook extends JFrame {
 		ActionListener actionListener = new ViewBookQuitButtonListener(this, user);
 		quitButton.addActionListener(actionListener);
 
-		ActionListener actionListener2 = new ViewBookSearchButtonListener(bookIDField, viewBookTable, model);
+		ActionListener actionListener2 = new ViewBookSearchButtonListener(this, bookIDField, viewBookTable, model);
 		searchButton.addActionListener(actionListener2);
 
 		ActionListener actionListener3 = new ViewBookClearButtonListener(viewBookTable, model);
 		clearButton.addActionListener(actionListener3);
+
+		setComponentName();
 	}
 
 	public void addModel() {
@@ -124,7 +128,25 @@ public class ViewAdminViewBook extends JFrame {
 			Object object[] = { book.getBookID(), book.getCopyID(), book.getTitle(), book.getTypeName(),
 					book.getAuthor(), book.getCondition(), book.getPrice() };
 			model.addRow(object);
-		}
+		} 
 		viewBookTable.setModel(model);
 	}
+
+	public JTextField getBookIDField(){
+		return bookIDField;
+	}
+	public JButton getSearchButton(){
+		return searchButton;
+	}
+	public String getMessage(){
+		return message;
+	}
+	public void setComponentName(){
+		viewBookTable.setName("table");
+		bookIDField.setName("bookID");
+		searchButton.setName("searchBtn");
+	}
+
+
+
 }

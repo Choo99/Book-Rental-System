@@ -21,9 +21,11 @@ public class PaymentSearchButtonListener implements ActionListener {
 	private JTextField rentalFeeField;
 	private JButton printButton;
 	private JTextField rentalIDField2;
+	private ViewBilling frame;
 
-	public PaymentSearchButtonListener(JTextField rentalIDField, JTextField nameField, JTextField currentDateField,
+	public PaymentSearchButtonListener(ViewBilling frame,JTextField rentalIDField, JTextField nameField, JTextField currentDateField,
 			JTextField expectedField, JTextField rentalFeeField, JButton printButton, JTextField rentalIDField2) {
+		this.frame = frame;
 		this.rentalIDField = rentalIDField;
 		this.nameField = nameField;
 		this.currentDateField = currentDateField;
@@ -52,13 +54,14 @@ public class PaymentSearchButtonListener implements ActionListener {
 		}
 
 		Rental rental = rentalController.searchRentalFee(Integer.parseInt(rentalIDField.getText()));
-
+		frame.setRental(rental);
+		
 		// no rental ID found
 		if (rental == null) {
 			JOptionPane.showMessageDialog(null, "This Rental ID cannot be found!", "Find Rental ID", 1);
 			rentalIDField.setText("");
 			nameField.setText("");
-			currentDateField.setText("");
+			currentDateField.setText(""); 
 			expectedField.setText("");
 			rentalFeeField.setText("");
 			rentalIDField2.setText("");

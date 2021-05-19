@@ -116,9 +116,12 @@ public class ViewCustomerSearchBook extends JFrame
 		
 		ActionListener actionListener3 = new CustomerSearchBookClearButtonListener(model,searchBookTextField);
 		clearButton.addActionListener(actionListener3);
-
+		setName();
 	}
 
+	public void setName() {
+		table.setName("table");
+	}
 	public void addModel()
 	{
 		Book book;

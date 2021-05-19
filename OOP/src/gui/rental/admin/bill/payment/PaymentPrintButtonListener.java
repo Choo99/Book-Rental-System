@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import controller.RentalController;
 import gui.rental.admin.bill.receipt.ViewReceipt;
 import model.Rental;
 import model.User;
@@ -14,11 +15,11 @@ import model.User;
 //button to go to receipt menu screen
 public class PaymentPrintButtonListener implements ActionListener {
 
-	private JFrame frame;
+	private ViewBilling frame;
 	private JTextField rentalIDField;
 	private User user;
 
-	public PaymentPrintButtonListener(JFrame frame, JTextField rentalIDField, User user) {
+	public PaymentPrintButtonListener(ViewBilling frame,JTextField rentalIDField, User user) {
 		this.frame = frame;
 		this.rentalIDField = rentalIDField;
 		this.user = user;
@@ -28,11 +29,17 @@ public class PaymentPrintButtonListener implements ActionListener {
 		int result = JOptionPane.showConfirmDialog(null, "Do you confirm your data?", "Update",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		if (result == 0) {
-			Rental rental = new Rental();
-			rental.setRentID(Integer.parseInt(rentalIDField.getText()));
+			frame.getRental().setRentID(Integer.parseInt(rentalIDField.getText()));
+			
+			RentalController controller = new RentalController();
+			int updateResult = controller.updateRenting(frame.getRental().getRentID());
+			if(updateResult == 1) {
+				frame.setMessage("Renting");
+			}
 
-			ViewReceipt menu = new ViewReceipt(rental, user);
-			menu.setVisible(true);
+			ViewReceipt menu = new ViewReceipt(frame.getRental(), user);
+			frame.setReceipt(menu);
+			frame.getReceipt().setVisible(true);
 			frame.dispose();
 		}
 

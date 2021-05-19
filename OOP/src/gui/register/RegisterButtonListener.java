@@ -33,7 +33,7 @@ public class RegisterButtonListener implements ActionListener {
 
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent arg0) { 
 		User user = new User();
 		UserController userController = new UserController();
 		InputController inputController = new InputController();

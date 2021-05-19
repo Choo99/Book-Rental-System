@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -17,7 +16,7 @@ import model.Book;
 import model.User;
 //button in add book screen to add new books
 public class AddBookButtonListener implements ActionListener {
- 
+ private ViewAdminAddBook frame;
  private JTextField titleField;
  private JTextField authorField;
  private JComboBox<String> bookType;
@@ -26,8 +25,8 @@ public class AddBookButtonListener implements ActionListener {
  private BookController bookController; 
  private User user;
 
- public AddBookButtonListener (JFrame frame, JTextField titleField, JTextField authorField, JComboBox<String> bookType, JTextField quantityField, User user)
- {
+ public AddBookButtonListener (ViewAdminAddBook frame, JTextField titleField, JTextField authorField, JComboBox<String> bookType, JTextField quantityField, User user)
+ {  this.frame=frame;
      this.titleField = titleField;
      this.authorField=authorField;
      this.bookType=bookType;
@@ -82,9 +81,10 @@ public void actionPerformed(ActionEvent arg0)
         } 
         // check and update book status to available after new books and copies are added
 		bookController.updateBookToAvailable();
-        JOptionPane.showMessageDialog(null,"Add the Book successfully !","Success",1);
+        JOptionPane.showMessageDialog(null,"Add the book successfully !","Success",1);
         ViewAdminAddedBookList slip = new ViewAdminAddedBookList(bookList,user);
         slip.setVisible(true);
+        frame.setMessage("Add the Book successfully !");
     }
     titleField.setText("");
     authorField.setText("");

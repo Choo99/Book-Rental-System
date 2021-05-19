@@ -7,18 +7,19 @@ public class Rental {
 	private int bookID;
 	private int copyID;
 	private String rentDate;
-	private String returnDate;//actual return date
+	private String returnDate;// actual return date
 	private double rentFee;
-	private double overdueFee;//return - expect x fee
+	private double overdueFee;// return - expect x fee
 	private String status;
-	private String expectedDate;//expected return date of book
+	private String expectedDate;// expected return date of book
 	private String customerName;
-	//duration =7 days
-	
-	//constructor
-		public Rental(){}
+	// duration =7 days
 
-	//All the getter setter
+	// constructor
+	public Rental() {
+	}
+
+	// All the getter setter
 	public int getBookID() {
 		return bookID;
 	}
@@ -34,37 +35,43 @@ public class Rental {
 	public void setCopyID(int copyID) {
 		this.copyID = copyID;
 	}
-	
-	
-	
+
 	public int getUserID() {
 		return userID;
 	}
+
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
+
 	public int getRentID() {
 		return rentID;
 	}
+
 	public void setRentID(int rentID) {
 		this.rentID = rentID;
 	}
-	
+
 	public double getRentFee() {
 		return rentFee;
 	}
+
 	public void setRentFee(double rentFee) {
 		this.rentFee = rentFee;
 	}
+
 	public double getOverdueFee() {
 		return overdueFee;
 	}
+
 	public void setOverdueFee(double overdueFee) {
 		this.overdueFee = overdueFee;
 	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
@@ -100,7 +107,7 @@ public class Rental {
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	
+
 	/////////////////
 
 }

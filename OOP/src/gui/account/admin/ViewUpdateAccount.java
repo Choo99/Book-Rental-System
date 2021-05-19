@@ -1,4 +1,4 @@
-package gui.account;
+package gui.account.admin;
 
 import java.awt.Color;
 import javax.swing.JFrame;

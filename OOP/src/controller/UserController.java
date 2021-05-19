@@ -9,363 +9,414 @@ import model.User;
 public class UserController {
 
 	private DatabaseConnection database;
-    
-    public UserController ()
-    {
-        database = new DatabaseConnection();
-    }
 
-    // add new user and will return status to check the new user registration is success or not
-    public int addUser(User user)
-    {
-        int status = 0;
-        String sql= "INSERT INTO user(name, ic, phone, role, password, registerDate) VALUES (?, ?, ?, ?, ?, CURDATE())";
-        Connection conn =null;
-        PreparedStatement ps = null;
+	public UserController() {
+		database = new DatabaseConnection();
+	}
 
-        try
-        {
-            conn = database.getConnection();
-            ps = conn.prepareStatement(sql);
+	// add new user and will return status to check the new user registration is
+	// success or not
+	public int addUser(User user) {
+		int status = 0;
+		String sql = "INSERT INTO user(name, ic, phone, role, password, registerDate) VALUES (?, ?, ?, ?, ?, CURDATE())";
+		Connection conn = null;
+		PreparedStatement ps = null;
 
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getIC());
-            ps.setString(3, user.getPhone());
-            ps.setString(4, user.getRole());
-            ps.setString(5, user.getPassword());
-            
-           status = ps.executeUpdate();
-        }
-        catch (Exception ex) 
-        {
+		try {
+			conn = database.getConnection();
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getIC());
+			ps.setString(3, user.getPhone());
+			ps.setString(4, user.getRole());
+			ps.setString(5, user.getPassword());
+
+			status = ps.executeUpdate();
+		} catch (Exception ex) {
 			ex.printStackTrace();
-		}        
-        finally
-        {
-            try{
-                if(ps!=null)
-                     ps.close();
-                 if(conn!=null)
-                     conn.close();
-            }
-            catch(Exception e)
-            {}
-            
-        }
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
+		}
 
-       return status;                
-    }
+		return status;
+	}
 
-    // check the user entered password is same as password in database or not
-    // return true if password is correct and user may login
-	public boolean checkPassword(int userID, String password)
-	{
-		String password2="";
-		Boolean found=false;
-		
-		String sql="SELECT password FROM user WHERE userID= ?";
-        Connection conn =null;
-        PreparedStatement ps = null;
+	// check the user entered password is same as password in database or not
+	// return true if password is correct and user may login
+	public boolean checkPassword(int userID, String password) {
+		String password2 = "";
+		Boolean found = false;
 
-       int row=0;
-        
-        try{
-        	
-        conn = database.getConnection();
-        
-        ps = conn.prepareStatement(sql);
-        ps.setInt(1, userID);
+		String sql = "SELECT password FROM user WHERE userID= ?";
+		Connection conn = null;
+		PreparedStatement ps = null;
 
-        ResultSet rs = ps.executeQuery();
-       
-        	if(rs.next())
-        	{
-        		row++;
-        		password2=rs.getString(1);  
-        	}
-        
-        	if(row==0)
-        	{		
-        		return found;
-        	}
-        
-    
-		 if(password.equals(password2))
-	     {
-			 
-	        found = true;
-	     }
-		 
-		
+		int row = 0;
 
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-		
-        finally{
-                 try{
-                     if (ps != null)
-                      ps.close();
-            
-                       if (conn != null)
-                       conn.close();
-                      }
-                 catch(Exception e)
-                     {}
-                 }
-        
-        return found;
-    }
+		try {
 
-    // used to check the user IC is exist or not
-    public boolean isUserIDExist(int userID)
-    {
-        boolean found= false;
-        String sql ="SELECT EXISTS (SELECT * FROM user WHERE userID=? )";
-        Connection conn =null;
-        PreparedStatement ps = null;
-        ResultSet rs =null;
+			conn = database.getConnection();
 
-        try{
-            conn = database.getConnection();
-            ps = conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, userID);
 
-            ps.setInt(1, userID);
-            rs = ps.executeQuery();
-            rs.next();
+			ResultSet rs = ps.executeQuery();
 
-             if(rs.getInt(1)==1)
-             {
-                found = true;
-             }
-             
+			if (rs.next()) {
+				row++;
+				password2 = rs.getString(1);
+			}
 
-        }catch (Exception ex) {
-			
+			if (row == 0) {
+				return found;
+			}
+
+			if (password.equals(password2)) {
+
+				found = true;
+			}
+
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-         finally
-        {
-            try{
-                if(ps!=null)
-                     ps.close();
-                if (rs!=null)
-                     rs.close();
-                 if(conn!=null)
-                     conn.close();
-            }
-            catch(Exception e)
-            {}
-             
-        }
-        return found;
-    }
+
+		finally {
+			try {
+				if (ps != null)
+					ps.close();
+
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return found;
+	}
+
+	// used to check the user IC is exist or not
+	public boolean isUserIDExist(int userID) {
+		boolean found = false;
+		String sql = "SELECT EXISTS (SELECT * FROM user WHERE userID=? )";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = database.getConnection();
+			ps = conn.prepareStatement(sql);
+
+			ps.setInt(1, userID);
+			rs = ps.executeQuery();
+			rs.next();
+
+			if (rs.getInt(1) == 1) {
+				found = true;
+			}
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		return found;
+	}
 
 // check the new user IC exist or not to avoid duplicate registration
-public boolean isUserICExist(String ic)
-    {
-        boolean found= false;
-        String sql ="SELECT EXISTS (SELECT * FROM user WHERE ic=? )";
-        Connection conn =null;
-        PreparedStatement ps = null;
-        ResultSet rs =null;
+	public boolean isUserICExist(String ic) {
+		boolean found = false;
+		String sql = "SELECT EXISTS (SELECT * FROM user WHERE ic=? )";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
-        try{
-            conn = database.getConnection();
-            ps = conn.prepareStatement(sql);
+		try {
+			conn = database.getConnection();
+			ps = conn.prepareStatement(sql);
 
-            ps.setString(1, ic);
-            rs = ps.executeQuery();
-            rs.next();
+			ps.setString(1, ic);
+			rs = ps.executeQuery();
+			rs.next();
 
-             if(rs.getInt(1)==1)
-             {
-                found = true;
-             }
-             
+			if (rs.getInt(1) == 1) {
+				found = true;
+			}
 
-        }catch (Exception ex) {
-			
+		} catch (Exception ex) {
+
 			ex.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		}
-         finally
-        {
-            try{
-                if(ps!=null)
-                     ps.close();
-                if (rs!=null)
-                     rs.close();
-                 if(conn!=null)
-                     conn.close();
-            }
-            catch(Exception e)
-            {}
-             
-        }
-        return found;
-    }
+		return found;
+	}
 
-    // to check the user role by userID when login
-    public String getUserRole(int userID)
-    {
-        String sql="SELECT Role FROM User WHERE userID = ?";
-        String roleName = "";
-        Connection conn =null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+	// to check the user role by userID when login
+	public String getUserRole(int userID) {
+		String sql = "SELECT Role FROM User WHERE userID = ?";
+		String roleName = "";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
-        try
-        {
-            conn = database.getConnection();
-            ps=conn.prepareStatement(sql);
-            ps.setInt(1, userID);
-            rs=ps.executeQuery();
-            rs.next();
-            roleName = rs.getString(1);
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        finally
-        {
-            try{
-                if(ps!=null)
-                     ps.close();
-                if (rs!=null)
-                     rs.close();
-                 if(conn!=null)
-                     conn.close();
-            }
-            catch(Exception e)
-            {}
-        }
-        return roleName;
-    }
+		try {
+			conn = database.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, userID);
+			rs = ps.executeQuery();
+			rs.next();
+			roleName = rs.getString(1);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return roleName;
+	}
 
-    // search user info by userID
-    public User searchUser(int userID)
-    {
-        String sql="SELECT name,phone,userID FROM User WHERE UserID = ?";
-        Connection conn =null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+	// search user info by userID 
+	public User searchUser(int userID) {
+		String sql = "SELECT name,phone,userID FROM User WHERE UserID = ?";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
-        User user = null;
-        try
-        {
-            conn = database.getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, userID);
-            rs = ps.executeQuery();
-            if(rs.next())
-            {
-                user = new User();
-                user.setName(rs.getString(1));
-                user.setPhone(rs.getString(2));
-                user.setUserID(rs.getInt(3));
-            }
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        finally
-        {
-            try{
-                if(ps!=null)
-                     ps.close();
-                if (rs!=null)
-                     rs.close();
-                 if(conn!=null)
-                     conn.close();
-            }
-            catch(Exception e)
-            {}
-        }
-        return user;
-    }
+		User user = null;
+		try {
+			conn = database.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, userID);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				user = new User();
+				user.setName(rs.getString(1));
+				user.setPhone(rs.getString(2));
+				user.setUserID(rs.getInt(3));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return user;
+	}
+	
+	// search user info by userID 
+		public User searchUserInfo(int userID) {
+			String sql = "SELECT userID,name,ic,phone,password FROM User WHERE UserID = ?";
+			Connection conn = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
 
-    // update user info by id
-    public int updateAccount(User user)
-    {
-        String sql="Update User SET name = ?,phone = ? WHERE userID = ?";
-        Connection conn =null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        int status = 0;
+			User user = null;
+			try {
+				conn = database.getConnection();
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, userID);
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					user = new User();
+					user.setUserID(rs.getInt(1));
+					user.setName(rs.getString(2));
+					user.setIC(rs.getString(3));
+					user.setPhone(rs.getString(4));
+					user.setPassword(rs.getString(5));
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				try {
+					if (ps != null)
+						ps.close();
+					if (rs != null)
+						rs.close();
+					if (conn != null)
+						conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return user;
+		}
 
-        try
-        {
-            conn = database.getConnection();
-            ps=conn.prepareStatement(sql);
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getPhone());
-            ps.setInt(3, user.getUserID());
-            status = ps.executeUpdate();
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        finally
-        {
-            try{
-                if(ps!=null)
-                     ps.close();
-                if (rs!=null)
-                     rs.close();
-                 if(conn!=null)
-                     conn.close();
-            }
-            catch(Exception e)
-            {}
-        }
-        return status;
-    }
+	// update user info by id
+	public int updateAccount(User user) {
+		String sql = "Update User SET name = ?,phone = ? WHERE userID = ?";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int status = 0;
 
+		try {
+			conn = database.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getPhone());
+			ps.setInt(3, user.getUserID());
+			status = ps.executeUpdate();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return status;
+	}
 
-    // to get new user id and display to allow new user login
-    public int getNewUserID()
-    {
-        String sql="SELECT MAX(userID) FROM user";
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        int userID = 0;
+	// update user password
+	public int updateAccountPassword(User user) {
+		String sql = "UPDATE User SET name =?,ic = ?, phone = ?, password = ? WHERE userID = ? ";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int status = 0;
 
-        try
-        {
-            conn = database.getConnection();
-            ps=conn.prepareStatement(sql);
-            rs= ps.executeQuery();
-            rs.next();
-            userID=rs.getInt(1);
+		try {
+			conn = database.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getIC());
+			ps.setString(3, user.getPhone());
+			ps.setString(4, user.getPassword());
+			ps.setInt(5, user.getUserID());
+			status = ps.executeUpdate();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return status;
+	}
+	
+	// update user password
+		public int updateAccountInfo(User user) {
+			String sql = "UPDATE User SET name =?,ic = ?, phone = ? WHERE userID = ? ";
+			Connection conn = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			int status = 0;
 
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        finally
-        {
-            try{
-                if(ps!=null)
-                     ps.close();
-                if (rs!=null)
-                     rs.close();
-                 if(conn!=null)
-                     conn.close();
-            }
-            catch(Exception e)
-            {}
-        }
-        return userID;
-    }
+			try {
+				conn = database.getConnection();
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, user.getName());
+				ps.setString(2, user.getIC());
+				ps.setString(3, user.getPhone());
+				ps.setInt(4, user.getUserID());
+				status = ps.executeUpdate();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				try {
+					if (ps != null)
+						ps.close();
+					if (rs != null)
+						rs.close();
+					if (conn != null)
+						conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return status;
+		}
 
+	// to get new user id and display to allow new user login
+	public int getNewUserID() {
+		String sql = "SELECT MAX(userID) FROM user";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int userID = 0;
 
+		try {
+			conn = database.getConnection();
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			rs.next();
+			userID = rs.getInt(1);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+				if (rs != null)
+					rs.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return userID;
+	}
 
 }

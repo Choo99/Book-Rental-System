@@ -30,7 +30,7 @@ public class ViewSearchRental extends JFrame
 	private JPanel contentPane;
 	private JTextField rentalIDField;
 	private JTable bookRentalTable;
-	private User user;
+	private User user; 
 	private DefaultTableModel model;
 	
 	public ViewSearchRental() 
@@ -113,6 +113,12 @@ public class ViewSearchRental extends JFrame
 
 		ActionListener actionListener3 = new SearchRentalClearButtonListener (rentalIDField, model);
 		clearButton.addActionListener(actionListener3);
+		
+		setName();
+	}
+	
+	private void setName() {
+		bookRentalTable.setName("table");
 	}
 
 	public void addModel()
