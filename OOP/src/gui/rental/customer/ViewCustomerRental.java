@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import gui.rental.customer.slip.ViewRentalSlip;
 import model.User;
 
 import javax.swing.JButton;
@@ -27,8 +28,28 @@ public class ViewCustomerRental extends JFrame
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField rentBookTextField;
-	private JTable rentalBookListTable;
+	private JTable rentalBookListTable; 
 	private JTextField copyIDField;
+	private ViewRentalSlip slip;
+	private JButton addBookButton;
+	private JButton rentBookButton;
+	private String message;
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public ViewRentalSlip getSlip() {
+		return slip;
+	}
+ 
+	public void setSlip(ViewRentalSlip slip) {
+		this.slip = slip;
+	}
 
 	public ViewCustomerRental(User user) 
 	{
@@ -79,12 +100,12 @@ public class ViewCustomerRental extends JFrame
 			
 		scrollPane.setViewportView(rentalBookListTable);
 		
-		JButton addBookButton = new JButton("");
+		addBookButton = new JButton("");
 		addBookButton.setIcon(new ImageIcon(ViewCustomerRental.class.getResource("/png/transparency.png")));
 		addBookButton.setBounds(652, 259, 58, 28);
 		contentPane.add(addBookButton);
 		
-		JButton rentBookButton = new JButton("Rent");
+		rentBookButton = new JButton("Rent");
 		rentBookButton.setFont(new Font("FangSong", Font.BOLD, 21));
 		rentBookButton.setBounds(99, 469, 110, 38);
 		contentPane.add(rentBookButton);
@@ -107,7 +128,7 @@ public class ViewCustomerRental extends JFrame
 		ActionListener actionListener = new CustomerRentButtonListener(this,model,user);
 		rentBookButton.addActionListener(actionListener);
 
-		ActionListener actionListener2 = new CustomerAddRentalButtonListener(rentBookTextField,copyIDField,model);
+		ActionListener actionListener2 = new CustomerAddRentalButtonListener(this,rentBookTextField,copyIDField,model);
 		
 		JButton deleteButton = new JButton("Delete");
 		deleteButton.setMargin(new Insets(12, 14, 2, 14));
@@ -121,5 +142,15 @@ public class ViewCustomerRental extends JFrame
 		
 		ActionListener actionListener4 = new CustomerDeleteRentalButtonListener(rentalBookListTable,model);
 		deleteButton.addActionListener(actionListener4);
+		
+		setName();
+	}
+	
+	void setName() {
+		rentBookTextField.setName("bookID");
+		copyIDField.setName("copyID");
+		addBookButton.setName("addBookBtn");
+		rentBookButton.setName("rentBookBtn");
+		rentalBookListTable.setName("table");
 	}
 }

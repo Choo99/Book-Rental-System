@@ -31,7 +31,7 @@ class Register {
 	private static Scanner any;
 
 	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() throws Exception { 
 		register = new ViewRegister();
 		any = new Scanner(System.in);
 	}

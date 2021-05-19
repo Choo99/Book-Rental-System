@@ -15,10 +15,12 @@ import model.Book;
 
 //button to search book ID
 public class ViewBookSearchButtonListener implements ActionListener {
+	private ViewAdminViewBook frame;
 	private JTextField bookIDField;
 	private DefaultTableModel model;
 
-	public ViewBookSearchButtonListener(JTextField bookIDField, JTable table, DefaultTableModel model) {
+	public ViewBookSearchButtonListener(ViewAdminViewBook frame, JTextField bookIDField, JTable table, DefaultTableModel model) {
+		this.frame= frame;
 		this.bookIDField = bookIDField;
 		this.model = model;
 	}

@@ -17,7 +17,7 @@ public class SearchRentalSearchButtonListener implements ActionListener
 {
     private JTextField rentalIDField;
     private JTable bookRentalTable;
-    private DefaultTableModel model;
+    private DefaultTableModel model; 
 
     public SearchRentalSearchButtonListener(JTextField rentalIDField,JTable bookRentalTable,DefaultTableModel model)
     {
@@ -48,7 +48,8 @@ public class SearchRentalSearchButtonListener implements ActionListener
             JOptionPane.showMessageDialog(null,"This Rental ID cannot be found!","Find Rental ID",1);
             rentalIDField.setText("");
             return;
-        }       
+        }
+      
         model.setRowCount(0); 
         Object object[] = {rental.getRentID(),rental.getCustomerName(),rental.getRentDate(),rental.getExpectedDate(),
         rental.getReturnDate(),rental.getRentFee(),rental.getStatus()};

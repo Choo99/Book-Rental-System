@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.BookController;
 import controller.InputController;
+import gui.rental.customer.slip.ViewRentalSlip;
 import model.Book;
 
 //click button and add rental info
@@ -18,8 +19,10 @@ public class CustomerAddRentalButtonListener implements ActionListener {
 	private JTextField bookIDField;
 	private JTextField copyIDField;
 	private Book book;
+	private ViewCustomerRental frame;
 
-	CustomerAddRentalButtonListener(JTextField bookIDField, JTextField copyIDField, DefaultTableModel model) {
+	CustomerAddRentalButtonListener(ViewCustomerRental frame,JTextField bookIDField, JTextField copyIDField, DefaultTableModel model) {
+		this.frame = frame;
 		this.bookIDField = bookIDField;
 		this.copyIDField = copyIDField;
 		this.model = model;
@@ -39,7 +42,9 @@ public class CustomerAddRentalButtonListener implements ActionListener {
 
 		// limit 5 books to be rent
 		if (model.getRowCount() >= 5) {
-			JOptionPane.showMessageDialog(null, "Maximum five books in one rental !", "Error", 1);
+			String message = "Maximum five books in one rental !";
+			frame.setMessage(message);
+			JOptionPane.showMessageDialog(null,message , "Error", 1);
 			bookIDField.setText("");
 			copyIDField.setText("");
 			return;
@@ -55,7 +60,17 @@ public class CustomerAddRentalButtonListener implements ActionListener {
 
 		// no book ID found
 		if (book == null) {
-			JOptionPane.showMessageDialog(null, "No result found!", "Error", 1);
+			String message =  "No result found!";
+			frame.setMessage(message);
+			JOptionPane.showMessageDialog(null,message, "Error", 1);
+			bookIDField.setText("");
+			copyIDField.setText("");
+			return;
+		}
+		else if(book.getCondition().equals("Rented") || book.getCondition().equals("Broken")) {
+			String message =  "This book is broken/rented! Please find other book";
+			frame.setMessage(message);
+			JOptionPane.showMessageDialog(null,message , "Error", 1);
 			bookIDField.setText("");
 			copyIDField.setText("");
 			return;
@@ -65,7 +80,9 @@ public class CustomerAddRentalButtonListener implements ActionListener {
 		for (int index = 0; index < model.getRowCount(); index++) {
 			if (Integer.toString(book.getBookID()).equals(model.getValueAt(index, 0).toString())
 					&& (Integer.toString(book.getCopyID()).equals(model.getValueAt(index, 1).toString()))) {
-				JOptionPane.showMessageDialog(null, "Repeated book in the list!", "Error", 1);
+				String message =  "Repeated book in the list!";
+				frame.setMessage(message);
+				JOptionPane.showMessageDialog(null, message, "Error", 1);
 				bookIDField.setText("");
 				copyIDField.setText("");
 				return;

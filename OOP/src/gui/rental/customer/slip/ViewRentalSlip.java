@@ -31,15 +31,19 @@ public class ViewRentalSlip extends JFrame
 {
 	/**
 	 * 
-	 */
+	 */ 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField rentIDField;
 	private JTextField nameField;
 	private JTextField currentDateField;
-	private JTextField returnDateField;
+	private JTextField returnDateField; 
 	private DefaultTableModel model;
 	private JTable rentListTable;
+
+	public JTable getRentListTable() {
+		return rentListTable;
+	}
 
 	public ViewRentalSlip(Rental rental,User user) 
 	{
@@ -118,9 +122,6 @@ public class ViewRentalSlip extends JFrame
 		
 		rentListTable = new JTable()
 		{
-		  	/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int row, int column) 
@@ -162,5 +163,21 @@ public class ViewRentalSlip extends JFrame
 			Object object[] =new Object[]{book.getBookID(),book.getCopyID(),book.getTitle(),book.getTypeName(),book.getAuthor(),book.getPrice()};
 			model.addRow(object);
 		}
+	}
+	
+	public JTextField getRentIDField() {
+		return rentIDField;
+	}
+
+	public JTextField getNameField() {
+		return nameField;
+	}
+
+	public JTextField getCurrentDateField() {
+		return currentDateField;
+	}
+
+	public JTextField getReturnDateField() {
+		return returnDateField;
 	}
 }

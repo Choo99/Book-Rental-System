@@ -29,7 +29,7 @@ public class ViewReceipt extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable receiptTable;
-	private JTextField amountField;
+	private JTextField amountField; 
 	private JTextField dateField;
 	private JTextField rentalIDField;
 	private DefaultTableModel model;
@@ -133,10 +133,23 @@ public class ViewReceipt extends JFrame {
 
 		String date = rentalController.currentDate();
 		dateField.setText(date);
-
-		rental = rentalController.searchRentalFee(rental.getRentID());
 		amountField.setText(Double.toString(rental.getRentFee()));
 
-		rentalController.updateRenting(rental.getRentID());
+	}
+	
+	public JTable getReceiptTable() {
+		return receiptTable;
+	}
+
+	public JTextField getAmountField() {
+		return amountField;
+	}
+
+	public JTextField getDateField() {
+		return dateField;
+	}
+
+	public JTextField getRentalIDField() {
+		return rentalIDField;
 	}
 }

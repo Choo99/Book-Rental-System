@@ -1,6 +1,6 @@
 package gui.menu.customer;
 
-import java.awt.event.ActionListener;
+import java.awt.event.ActionListener; 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -38,17 +38,17 @@ public class ViewCustomerMenu extends JFrame
 		setLocationRelativeTo(null);
 		
 		SearchButton = new JButton("Search Book");
-		SearchButton.setBounds(296, 224, 243, 55);
+		SearchButton.setBounds(67, 253, 243, 55);
 		SearchButton.setIcon(new ImageIcon(ViewCustomerMenu.class.getResource("/png/search_3.png")));
 		SearchButton.setFont(new Font("FangSong", Font.BOLD, 20));
 		
 		RentalButton = new JButton("Rental Book");
-		RentalButton.setBounds(296, 316, 243, 59);
+		RentalButton.setBounds(502, 251, 243, 59);
 		RentalButton.setIcon(new ImageIcon(ViewCustomerMenu.class.getResource("/png/real-estate_2.png")));
 		RentalButton.setFont(new Font("FangSong", Font.BOLD, 20));
 		
 		QuitButton = new JButton("  Quit");
-		QuitButton.setBounds(296, 423, 243, 49);
+		QuitButton.setBounds(502, 405, 243, 49);
 		QuitButton.setIcon(new ImageIcon(ViewCustomerMenu.class.getResource("/png/exit_1.png")));
 		QuitButton.setFont(new Font("FangSong", Font.BOLD, 20));
 		
@@ -67,11 +67,19 @@ public class ViewCustomerMenu extends JFrame
 		contentPane.add(tittle);
 		contentPane.add(customerLogo);
 		
+		JButton accountButton = new JButton("Account Setting");
+		accountButton.setFont(new Font("FangSong", Font.BOLD, 20));
+		accountButton.setBounds(67, 402, 243, 55);
+		contentPane.add(accountButton);
+		
 		ActionListener actionListenerSearch=new CustomerSearchBookListener(this,user);
 		SearchButton.addActionListener(actionListenerSearch);
 		
 		ActionListener actionListenerRental=new CustomerRentalBookButtonListener(this,user);
 		RentalButton.addActionListener(actionListenerRental);
+		
+		ActionListener actionListenerAccount = new CustomerAccountSettingButtonListener(this,user);
+		accountButton.addActionListener(actionListenerAccount);
 		
 		ActionListener actionListenerQuit=new CustomerQuitButtonListener(this,user);
 		QuitButton.addActionListener(actionListenerQuit);

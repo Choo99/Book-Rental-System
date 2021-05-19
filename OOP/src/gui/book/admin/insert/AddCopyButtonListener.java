@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -17,15 +16,16 @@ import model.User;
 
 //button to add book copy
 public class AddCopyButtonListener implements ActionListener {
-
+	private ViewAdminAddBook frame;
 	private JTextField bookIDField;
 	private JTextField quantityField;
 	private JTextField bookNameField;
 	private BookController bookController;
 	private User user;
 
-	public AddCopyButtonListener(JFrame frame, JTextField bookIDField, JTextField quantityField,
+	public AddCopyButtonListener(ViewAdminAddBook frame, JTextField bookIDField, JTextField quantityField,
 			JTextField bookNameField, User user) {
+		this.frame = frame;
 		this.bookIDField = bookIDField;
 		this.quantityField = quantityField;
 		this.bookNameField = bookNameField;
@@ -73,13 +73,20 @@ public class AddCopyButtonListener implements ActionListener {
 			}
 			// check and update book status to available after new copies are added
 			bookController.updateBookToAvailable();
-			ViewAdminAddedBookList menu = new ViewAdminAddedBookList(bookList, user);
-			menu.setVisible(true);
-
+			
 			// check the add copy unit is same as the expected quantity or not
 			if (count != Integer.parseInt(quantityField.getText())) {
 				JOptionPane.showMessageDialog(null, "Add Copy Failed!", "Check Add Copy", 1);
 			}
+			else
+				{
+					JOptionPane.showMessageDialog(null,"Add the copy successfully !","Success",1);
+					frame.setMessage("Add the copy successfully !");
+				}
+			
+			ViewAdminAddedBookList menu = new ViewAdminAddedBookList(bookList, user);
+			menu.setVisible(true);
+		
 		}
 		bookIDField.setText("");
 		bookNameField.setText("");
